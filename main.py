@@ -1,12 +1,11 @@
 import pygame
-import numpy as np
+import math
 
 class Car:
     def __init__(self):
-        self.x = 50
-        self.y = 50
+        self.pos = pygame.math.Vector2(50, 50)
         self.height = 50
-        self.width = 50
+        self.width = 30
 
     def move(self, keys):
         dx = 0
@@ -15,8 +14,8 @@ class Car:
         dx += 5 * keys[pygame.K_RIGHT]
         dy += -5 * keys[pygame.K_UP]
         dy += 5 * keys[pygame.K_DOWN]
-        self.x += dx
-        self.y += dy
+        self.pos[0] += dx
+        self.pos[1] += dy
 
 class GameWorld:
     def __init__(self):
@@ -27,7 +26,7 @@ class GameWorld:
         self.win.fill((0, 0, 0))
         for car in self.car_arr:
             pygame.draw.rect(self.win, (255, 0, 0),
-                             (car.x, car.y, car.height, car.width))
+                             (car.pos[0], car.pos[1], car.height, car.width))
             pygame.display.update()
 
 if __name__ == "__main__":
