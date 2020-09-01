@@ -1,12 +1,13 @@
 # pygame_car
 Quick prototyping of car racing environment on pygame
 
-### Quick Demo
+### Key Mapping
 KEY_UP | KEY_DOWN | KEY_LEFT | KEY_RIGHT | KEY_R |
 --- | --- | --- | --- |--- |
 Speed up (+0.3)| Slow down (+0.5) | Rotate (5°) | Rotate (-5°) | Reset to init()|
-![Demo](./img/demo.gif)
 
+### Demo
+![Demo](./img/demo.gif)
 
 ### TODO LIST
 - Add box2d collision
