@@ -57,6 +57,25 @@ class Car:
         for edge_angle in car_edge_angle:
             car_edge_point.append(self.off + self.vel.rotate(edge_angle))
         return car_edge_point
+    
+    def render_car(self, win):
+        edges_xy = self.get_polygon_edges()
+
+        # Car wheel rendering
+        # for edge in edges_xy:
+        #     pygame.draw.circle(
+        #         win, GREEN, (int(edge[0]), int(edge[1])), 3)
+
+        # Car body rendering
+        pygame.draw.polygon(win, BLACK, edges_xy)
+
+        # Car sensor rendering
+        pygame.draw.line(win, PINK, self.off,
+                            self.off + self.vel * 2, 2)
+        pygame.draw.line(win, PINK, self.off,
+                            self.off + self.vel.rotate(62) * 4, 1)
+        pygame.draw.line(win, PINK, self.off,
+                            self.off + self.vel.rotate(-62) * 4, 1)
 
 
 class GameWorld:
@@ -69,25 +88,8 @@ class GameWorld:
         for car in self.car_arr:
             if car.speed < MAX_SPEED and car.speed != 0:
                 car.speed += 0.001
-            edges_xy = car.get_polygon_edges()
-
-            # Car wheel rendering
-            # for edge in edges_xy:
-            #     pygame.draw.circle(
-            #         self.win, GREEN, (int(edge[0]), int(edge[1])), 3)
-
-            # Car body rendering
             car.off += car.vel.normalize() * car.speed
-            pygame.draw.polygon(self.win, BLACK, edges_xy)
-
-            # Simulate the angle of sensor
-            pygame.draw.line(self.win, PINK, car.off,
-                             car.off + car.vel * 2, 2)
-            pygame.draw.line(self.win, PINK, car.off,
-                             car.off + car.vel.rotate(62) * 4, 1)
-            pygame.draw.line(self.win, PINK, car.off,
-                             car.off + car.vel.rotate(-62) * 4, 1)
-
+            car.render_car(self.win)
             pygame.display.update()
 
     def show_info(self):
